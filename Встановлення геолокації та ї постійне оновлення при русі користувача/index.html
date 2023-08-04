@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Встановлення геолокації та ї постійне оновлення при русі користувача</title>
+</head>
+<body>
+    <p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button> <!-- - тут ми підвязуємо кнопку для відправлення запиту стосовно поточної геолокації -->
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() { /* - тут ми даємо запит на отримання інформації про фактичну геолокацію користувача  */
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPosition); /* - watchPosition слідкує онлайн за фактичною зміною позиції користувача (в режимі онлайн, якщо браузер підтримує цю функцію). Спочатку ми отримуємо відповідь про геолокацію ісля натискання кнопки, після чого інформація повинна оновлюватися самостій - тільки не зрозуміло між якими часовими проміжками та на скільки локація повинна змінитися щоб спрацьовувала система оновленого автоматичного пошуку */
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser."; /* - у разі якщо браузер не підтримує цієї функції користувач отримує цю відповідь */
+  }
+}
+    
+function showPosition(position) { /* - тут ми отримуємо інформацію на запит у формі відповіді про фактичне місце знаходження користувача */
+    x.innerHTML="Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додавання функції перетягування елемента в підготовлений блоковий елемент</title>
+
+    <style>
+        #div1 { /* - тут ми стилізуємо блоковий елемент як каркас для перенесення у нього іншого елементу за допомогою drap and drop */
+          width: 350px;
+          height: 70px;
+          padding: 10px;
+          border: 1px solid #aaaaaa;
+        }
+        </style>
+
+        <script>
+        function allowDrop(ev) { 
+        }
+        
+        function drag(ev) {
+          ev.dataTransfer.setData("text", ev.target.id); /* - метод dataTransfer.setData()встановлює тип даних і значення перетягнутих даних. У цьому випадку тип даних — «текст», а значення — ідентифікатор елемента, який можна перетягувати («drag1»). */
+        }
+        
+        function drop(ev) { 
+          ev.preventDefault(); /* - За замовчуванням дані/елементи не можна перекинути в інші елементи. Щоб дозволити відкидання, ми повинні заборонити обробку елемента за замовчуванням. Це робиться шляхом виклику event.preventDefault()методу для події ondragover: ev.preventDefault(); */
+          var data = ev.dataTransfer.getData("text");
+          ev.target.appendChild(document.getElementById(data));
+        }
+        </script>
+</head>
+ 
+<body>
+    <p>Drag the W3Schools image into the rectangle:</p>
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div> <!-- - тут ми створили блоковий елемент як каркас для перенесення у нього іншого елементу за допомогою drap and drop  --> <!-- - Де скинути - ondragover. Подія ondragover вказує, куди можна перетягнути дані.  -->
+    <!-- - Do the Drop - ondrop. Коли перетягнуті дані скидаються, відбувається подія скидання.У наведеному прикладі атрибут ondrop викликає функцію drop(event): -->
+    <br>
+    <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69"> <!-- - draggable="true" робимо обєкт таким, що може перетягуватись. У наведеному вище прикладі ondragstart атрибут викликає функцію drag(event), яка вказує, які дані потрібно перетягнути -->
+</body>
+</html>
